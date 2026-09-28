@@ -1,0 +1,138 @@
+---
+import type { ConfigItem } from "../lib/config";
+import type { ThemeName } from "../lib/themes";
+import { themeMeta } from "../lib/themes";
+
+interface Props {
+  item: ConfigItem;
+  preset: ThemeName;
+  showCaption: boolean;
+  listLayout?: boolean;
+}
+const { item, preset, showCaption, listLayout = false } = Astro.props;
+const { imageOnly } = themeMeta[preset];
+---
+
+<a
+  class:list={["kq-card", { "kq-card--row": listLayout }]}
+  href={item.url}
+  rel="noopener noreferrer"
+  aria-label={imageOnly ? item.title : undefined}
+>
+  <span class="kq-card__media">
+    <img src={item.image} alt={item.imageAlt} loading="lazy" />
+  </span>
+  {
+    !imageOnly && (
+      <span class="kq-card__body">
+        <h3 class="kq-card__title">{item.title}</h3>
+        {showCaption && item.heading && <p class="kq-card__heading">{item.heading}</p>}
+        {showCaption && item.description && <p class="kq-card__desc">{item.description}</p>}
+      </span>
+    )
+  }
+</a>
+
+<style>
+  .kq-card {
+    display: block;
+    text-decoration: none;
+    color: var(--kq-ink);
+    border-radius: var(--kq-radius);
+    border: var(--kq-border, none);
+    background: var(--kq-surface);
+    box-shadow: var(--kq-card-shadow, none);
+    overflow: hidden;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease,
+      color 0.15s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .kq-card {
+      transition: none;
+    }
+  }
+
+  .kq-card:hover,
+  .kq-card:focus-visible {
+    transform: var(--kq-hover-transform, translateY(-2px));
+    background: var(--kq-hover-bg, var(--kq-surface));
+    color: var(--kq-hover-color, var(--kq-ink));
+  }
+
+  .kq-card:focus-visible {
+    outline: 3px solid var(--kq-accent);
+    outline-offset: 3px;
+  }
+
+  .kq-card__media {
+    display: block;
+    aspect-ratio: var(--kq-media-aspect, 1.9);
+    overflow: hidden;
+    background: var(--kq-media-bg, var(--kq-surface));
+    box-shadow: var(--kq-media-ring, none);
+  }
+
+  .kq-card__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .kq-card__body {
+    display: block;
+    padding: 0.9rem 1rem 1.1rem;
+  }
+
+  .kq-card__title {
+    margin: 0;
+    font-family: var(--kq-font-heading);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: inherit;
+  }
+
+  .kq-card__heading {
+    margin: 0.3rem 0 0;
+    font-family: var(--kq-font-body);
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: inherit;
+    opacity: 0.85;
+  }
+
+  .kq-card__desc {
+    margin: 0.35rem 0 0;
+    font-family: var(--kq-font-body);
+    font-size: 0.82rem;
+    line-height: 1.4;
+    color: inherit;
+    opacity: 0.7;
+  }
+
+  /* Editorial's row layout: small square thumbnail + a text column, not a tile. */
+  .kq-card--row {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .kq-card--row .kq-card__media {
+    flex: none;
+    width: 56px;
+    aspect-ratio: 1;
+    border-radius: var(--kq-radius-sm);
+  }
+
+  .kq-card--row .kq-card__body {
+    padding: 0;
+  }
+
+  .kq-card--row:hover,
+  .kq-card--row:focus-visible {
+    transform: none;
+  }
+</style>

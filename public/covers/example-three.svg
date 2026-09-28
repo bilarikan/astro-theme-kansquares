@@ -1,0 +1,11 @@
+<svg viewBox="0 0 600 316" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The Kansquares logo mark, a grid of six colorful rounded squares">
+  <rect width="600" height="316" fill="#FAFAF9"/>
+  <rect x="70" y="46" width="64" height="64" rx="10" fill="#E24B4A"/>
+  <rect x="144" y="46" width="64" height="64" rx="10" fill="#378ADD"/>
+  <rect x="218" y="46" width="64" height="64" rx="10" fill="#EBA94E"/>
+  <rect x="70" y="120" width="64" height="64" rx="10" fill="#63BC8A"/>
+  <rect x="144" y="120" width="64" height="64" rx="10" fill="#9B6BC7"/>
+  <rect x="218" y="120" width="64" height="64" rx="10" fill="#2D6A8F"/>
+  <text x="70" y="240" font-family="Verdana, sans-serif" font-size="38" font-weight="700" fill="#1C1C1C">Kansquares</text>
+  <text x="70" y="266" font-family="Verdana, sans-serif" font-size="14" fill="#666666">a free, open-source Astro theme</text>
+</svg>

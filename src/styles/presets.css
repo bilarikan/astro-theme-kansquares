@@ -1,0 +1,257 @@
+/* ============================================================
+   Every preset defines the same handful of custom properties
+   (colors, radius, border, fonts — see tokens.css for the base
+   fallback values and for what each one does) plus, where the
+   mockup called for something CSS variables can't express, a few
+   extra structural rules scoped under the same [data-preset].
+
+   Light values go in the plain block; dark values go in the
+   matching @media (prefers-color-scheme: dark) block right below
+   it, so a preset's two color stories stay next to each other.
+
+   A note on specificity: Astro scopes every component's <style>
+   block with an auto-generated attribute selector, which makes a
+   component's own rules at least as specific as a plain selector
+   written here — so `[data-preset="x"] .kq-card { transform: ... }`
+   is NOT guaranteed to beat Card.astro's own `.kq-card:hover { ... }`.
+   Prefer adding a `--kq-*` variable that the component already reads
+   (grep the component for existing `var(--kq-...)` fallbacks) over a
+   direct property override. Reach for `!important` only for one-off
+   layout properties (flex-direction and friends) that don't fit the
+   variable pattern — see [data-preset="poster"] .kq-nav below.
+   ============================================================ */
+
+/* ---------- Tray (default) ----------
+   Lifted directly from The Place Value Tray's own token set. */
+[data-preset="tray"] {
+  --kq-bg: #eae6d9;
+  --kq-surface: #dbd5c3;
+  --kq-ink: #2a2e2a;
+  --kq-ink-soft: #5e635a;
+  --kq-accent: #2d6a8f;
+  --kq-radius: 14px;
+  --kq-border: none;
+  --kq-card-shadow: none;
+  --kq-font-heading: var(--font-fredoka, "Fredoka", ui-rounded, system-ui, sans-serif);
+  --kq-font-body: var(--font-fredoka, "Fredoka", ui-rounded, system-ui, sans-serif);
+}
+@media (prefers-color-scheme: dark) {
+  [data-preset="tray"] {
+    --kq-bg: #1e2422;
+    --kq-surface: #161b1a;
+    --kq-ink: #ede7d8;
+    --kq-ink-soft: #a8ada0;
+    --kq-accent: #5fa8ce;
+  }
+}
+
+/* ---------- Poster ----------
+   Faithful to john.fun: giant centered wordmark, image-only cards. */
+[data-preset="poster"] {
+  --kq-bg: #fafaf9;
+  --kq-surface: transparent;
+  --kq-ink: #111111;
+  --kq-ink-soft: #555555;
+  --kq-accent: #111111;
+  --kq-radius: 24px;
+  --kq-border: none;
+  --kq-card-shadow: none;
+  --kq-font-heading: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --kq-font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  [data-preset="poster"] {
+    --kq-bg: #0e0e0f;
+    --kq-ink: #f5f5f5;
+    --kq-ink-soft: #b3b3b3;
+    --kq-accent: #f5f5f5;
+  }
+}
+[data-preset="poster"] .kq-nav {
+  /* !important: overriding Nav.astro's own scoped layout rules, which win
+     ties on specificity against a plain selector here — see the note at
+     the top of this file. */
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+}
+[data-preset="poster"] .kq-nav__brand {
+  font-size: 2.6rem;
+  font-weight: 800;
+}
+
+/* ---------- Brutalist ----------
+   High-contrast, monospace, hard edges, inverts on hover. */
+[data-preset="brutalist"] {
+  --kq-bg: #ffffff;
+  --kq-surface: #ffffff;
+  --kq-ink: #111318;
+  --kq-ink-soft: #45464b;
+  --kq-accent: #111318;
+  --kq-radius: 0px;
+  --kq-radius-sm: 0px;
+  --kq-border: 2px solid currentColor;
+  --kq-card-shadow: none;
+  --kq-font-heading: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --kq-font-body: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  /* Invert instead of lifting on hover/focus — Card.astro's hover rule
+     reads these three variables directly, so no selector override (and no
+     specificity fight against Card.astro's own scoped styles) is needed. */
+  --kq-hover-bg: var(--kq-ink);
+  --kq-hover-color: var(--kq-bg);
+  --kq-hover-transform: none;
+}
+@media (prefers-color-scheme: dark) {
+  [data-preset="brutalist"] {
+    --kq-bg: #0b0b0c;
+    --kq-surface: #0b0b0c;
+    --kq-ink: #f5f5f5;
+    --kq-ink-soft: #b3b3b3;
+    --kq-accent: #f5f5f5;
+  }
+}
+
+/* ---------- Squares ----------
+   Literal 1:1 square cards in a tighter grid. */
+[data-preset="squares"] {
+  --kq-bg: #fafaf9;
+  --kq-surface: #f0f0ee;
+  --kq-ink: #1c1c1c;
+  --kq-ink-soft: #666666;
+  --kq-accent: #378add;
+  --kq-radius: 10px;
+  --kq-border: none;
+  --kq-card-shadow: none;
+  --kq-font-heading: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --kq-font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --kq-media-aspect: 1;
+  --kq-grid-gap: var(--kq-gap-sm);
+}
+@media (prefers-color-scheme: dark) {
+  [data-preset="squares"] {
+    --kq-bg: #17181a;
+    --kq-surface: #212226;
+    --kq-ink: #f0f0ee;
+    --kq-ink-soft: #9a9a97;
+    --kq-accent: #6fb3ff;
+  }
+}
+
+/* ---------- Zine ----------
+   Cut-and-paste scrapbook feel: tilted, tape-bordered cards. */
+[data-preset="zine"] {
+  --kq-bg: #f2ecdd;
+  --kq-surface: #ffffff;
+  --kq-ink: #2b2b2b;
+  --kq-ink-soft: #7a6f56;
+  --kq-accent: #b45a3c;
+  --kq-radius: 4px;
+  --kq-border: none;
+  --kq-card-shadow: none;
+  --kq-media-ring: 0 0 0 4px #ffffff;
+  --kq-font-heading: var(--font-fredoka, "Fredoka", ui-rounded, system-ui, sans-serif);
+  --kq-font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  [data-preset="zine"] {
+    --kq-bg: #201c14;
+    --kq-surface: #2b2620;
+    --kq-ink: #ede4d2;
+    --kq-ink-soft: #a89a7d;
+    --kq-accent: #e08a63;
+    --kq-media-ring: 0 0 0 4px #2b2620;
+  }
+}
+[data-preset="zine"] .kq-grid > .kq-card:nth-child(4n + 1) .kq-card__media {
+  transform: rotate(-2deg);
+}
+[data-preset="zine"] .kq-grid > .kq-card:nth-child(4n + 2) .kq-card__media {
+  transform: rotate(1.5deg);
+}
+[data-preset="zine"] .kq-grid > .kq-card:nth-child(4n + 3) .kq-card__media {
+  transform: rotate(-1deg);
+}
+[data-preset="zine"] .kq-grid > .kq-card:nth-child(4n) .kq-card__media {
+  transform: rotate(2deg);
+}
+
+/* ---------- Editorial ----------
+   A magazine-style list instead of a grid. The only preset with
+   listLayout: true in themes.ts, which is what makes Section/Card
+   render rows instead of tiles. */
+[data-preset="editorial"] {
+  --kq-bg: #ffffff;
+  --kq-surface: #ffffff;
+  --kq-ink: #1a1a1a;
+  --kq-ink-soft: #767676;
+  --kq-accent: #8a8a8a;
+  --kq-hairline: #eeeeee;
+  --kq-radius: 4px;
+  --kq-radius-sm: 4px;
+  --kq-border: none;
+  --kq-card-shadow: none;
+  --kq-font-heading: ui-serif, Georgia, "Times New Roman", serif;
+  --kq-font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  [data-preset="editorial"] {
+    --kq-bg: #121212;
+    --kq-surface: #121212;
+    --kq-ink: #ededed;
+    --kq-ink-soft: #9a9a9a;
+    --kq-accent: #9a9a9a;
+    --kq-hairline: #2a2a2a;
+  }
+}
+
+/* ---------- Terminal ----------
+   Phosphor green on black. Deliberately the same in light and dark —
+   a terminal doesn't get a light mode. */
+[data-preset="terminal"] {
+  --kq-bg: #0b0f0a;
+  --kq-surface: transparent;
+  --kq-ink: #4ade80;
+  --kq-ink-soft: #2f8f57;
+  --kq-accent: #4ade80;
+  --kq-hairline: #1f2a1f;
+  --kq-chrome-bg: #11140f;
+  --kq-radius: 4px;
+  --kq-border: 1px dashed currentColor;
+  --kq-card-shadow: none;
+  --kq-font-heading: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --kq-font-body: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+/* ---------- Blueprint ----------
+   Drafting-sheet blue, monospace labels, dashed sheet edge. */
+[data-preset="blueprint"] {
+  --kq-bg: #eef4fb;
+  --kq-surface: #ffffff;
+  --kq-ink: #1f3a5c;
+  --kq-ink-soft: #4a6a8a;
+  --kq-accent: #1f3a5c;
+  --kq-radius: 2px;
+  --kq-border: 1px solid #6a8cae;
+  --kq-card-shadow: none;
+  --kq-font-heading: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --kq-font-body: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  [data-preset="blueprint"] {
+    --kq-bg: #0e1a26;
+    --kq-surface: #13212f;
+    --kq-ink: #9fc1e0;
+    --kq-ink-soft: #6f92b3;
+    --kq-accent: #9fc1e0;
+    --kq-border: 1px solid #3e5c78;
+  }
+}
+[data-preset="blueprint"] .kq-page {
+  border: 1px dashed var(--kq-accent);
+}
+[data-preset="blueprint"] .kq-nav__brand,
+[data-preset="blueprint"] .kq-section__label {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}

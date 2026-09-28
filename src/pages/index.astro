@@ -1,0 +1,21 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Section from "../components/Section.astro";
+import Footer from "../components/Footer.astro";
+import config from "../lib/config";
+
+const { site, nav, theme, sections } = config;
+---
+
+<Layout site={site} preset={theme.preset} columns={theme.columns}>
+  <Nav siteTitle={site.title} nav={nav} />
+  <main>
+    {
+      sections.map((section) => (
+        <Section section={section} preset={theme.preset} showCaption={theme.showHeadingUnderImage} />
+      ))
+    }
+  </main>
+  <Footer footer={site.footer} />
+</Layout>

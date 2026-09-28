@@ -1,0 +1,35 @@
+---
+interface Props {
+  footer: string;
+}
+const { footer } = Astro.props;
+---
+
+{
+  footer && (
+    <footer class="kq-footer">
+      <p set:html={footer} />
+    </footer>
+  )
+}
+
+<style>
+  .kq-footer {
+    margin-top: var(--kq-gap-lg);
+    padding-top: var(--kq-gap);
+    text-align: center;
+  }
+
+  .kq-footer p {
+    margin: 0;
+    font-family: var(--kq-font-body);
+    font-size: 0.8rem;
+    color: var(--kq-ink-soft);
+  }
+
+  .kq-footer :global(a) {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+</style>

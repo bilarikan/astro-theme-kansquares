@@ -1,0 +1,93 @@
+---
+import Card from "./Card.astro";
+import type { KansquaresConfig } from "../lib/config";
+import type { ThemeName } from "../lib/themes";
+import { themeMeta } from "../lib/themes";
+
+interface Props {
+  section: KansquaresConfig["sections"][number];
+  preset: ThemeName;
+  showCaption: boolean;
+}
+const { section, preset, showCaption } = Astro.props;
+const { listLayout } = themeMeta[preset];
+const headingId = `kq-section-${section.id}`;
+---
+
+<section class="kq-section" aria-labelledby={headingId}>
+  <h2 class="kq-section__label" id={headingId}>{section.label}</h2>
+  {
+    listLayout ? (
+      <ul class="kq-list">
+        {section.items.map((item) => (
+          <li>
+            <Card item={item} preset={preset} showCaption={showCaption} listLayout />
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <div class="kq-grid">
+        {section.items.map((item) => (
+          <Card item={item} preset={preset} showCaption={showCaption} />
+        ))}
+      </div>
+    )
+  }
+</section>
+
+<style>
+  .kq-section {
+    margin-bottom: var(--kq-gap-lg);
+  }
+
+  .kq-section__label {
+    font-family: var(--kq-font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--kq-accent);
+    margin: 0 0 0.9rem;
+  }
+
+  .kq-grid {
+    display: grid;
+    gap: var(--kq-grid-gap, var(--kq-gap));
+    grid-template-columns: repeat(var(--kq-cols-mobile), minmax(0, 1fr));
+  }
+
+  @media (min-width: 640px) {
+    .kq-grid {
+      grid-template-columns: repeat(var(--kq-cols-tablet), minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kq-grid {
+      grid-template-columns: repeat(var(--kq-cols-desktop), minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .kq-grid {
+      grid-template-columns: repeat(var(--kq-cols-wide), minmax(0, 1fr));
+    }
+  }
+
+  .kq-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .kq-list li {
+    border-top: 1px solid var(--kq-hairline, var(--kq-surface));
+    padding: 0.8rem 0;
+  }
+
+  .kq-list li:first-child {
+    border-top: none;
+  }
+</style>

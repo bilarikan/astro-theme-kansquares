@@ -1,0 +1,63 @@
+---
+import { Font } from "astro:assets";
+import "../styles/global.css";
+import type { KansquaresConfig } from "../lib/config";
+
+interface Props {
+  site: KansquaresConfig["site"];
+  preset: KansquaresConfig["theme"]["preset"];
+  columns: KansquaresConfig["theme"]["columns"];
+}
+const { site, preset, columns } = Astro.props;
+
+const pageVars =
+  `--kq-cols-mobile:${columns.mobile};` +
+  `--kq-cols-tablet:${columns.tablet};` +
+  `--kq-cols-desktop:${columns.desktop};` +
+  `--kq-cols-wide:${columns.wide};`;
+
+const ogImage = site.ogImage
+  ? new URL(site.ogImage, Astro.site ?? site.url).toString()
+  : undefined;
+---
+
+<!doctype html>
+<html lang="en" data-preset={preset}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{site.title}</title>
+    <meta name="description" content={site.description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" href={site.favicon} />
+    <link rel="canonical" href={site.url} />
+
+    <meta property="og:title" content={site.title} />
+    <meta property="og:description" content={site.description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={site.url} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={site.title} />
+    <meta name="twitter:description" content={site.description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+
+    <Font cssVariable="--font-fredoka" preload />
+  </head>
+  <body>
+    <div class="kq-page" style={pageVars}>
+      {
+        preset === "terminal" && (
+          <div class="kq-chrome" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </div>
+        )
+      }
+      <div class="kq-container">
+        <slot />
+      </div>
+    </div>
+  </body>
+</html>

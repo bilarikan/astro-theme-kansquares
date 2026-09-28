@@ -1,0 +1,100 @@
+/* ============================================================
+   Structural tokens — spacing/sizing constants shared by every
+   preset. Colors, fonts, radii and borders are NOT here; those
+   are per-preset and live in presets.css under [data-preset="x"].
+   ============================================================ */
+:root {
+  --kq-gap-sm: 8px;
+  --kq-gap: 16px;
+  --kq-gap-lg: 32px;
+  --kq-radius-sm: 8px;
+  --kq-max-width: 1100px;
+}
+
+/* Sensible fallbacks so the page still looks intentional even if
+   data-preset is missing or misspelled — every one of these is
+   overridden by the matching [data-preset="..."] block. */
+:root {
+  --kq-bg: #fafaf9;
+  --kq-surface: #f0f0ee;
+  --kq-ink: #1c1c1c;
+  --kq-ink-soft: #6b6b68;
+  --kq-accent: #2d6a8f;
+  --kq-radius: 14px;
+  --kq-border: none;
+  --kq-card-shadow: none;
+  --kq-font-heading: var(--font-fredoka, "Fredoka", ui-rounded, system-ui, sans-serif);
+  --kq-font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--kq-bg);
+  color: var(--kq-ink);
+  font-family: var(--kq-font-body);
+  font-size: 17px;
+  line-height: 1.45;
+  -webkit-text-size-adjust: 100%;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+.kq-page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.kq-container {
+  width: 100%;
+  max-width: var(--kq-max-width);
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+  flex: 1;
+}
+
+/* Terminal preset's window-chrome bar. Only rendered in the DOM when
+   theme.preset === "terminal" (see Layout.astro), so this rule is inert
+   for every other preset. */
+.kq-chrome {
+  display: flex;
+  gap: 6px;
+  padding: 10px 16px;
+  background: var(--kq-chrome-bg, var(--kq-surface));
+  border-bottom: 1px solid var(--kq-hairline, transparent);
+}
+
+.kq-chrome span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.kq-chrome span:nth-child(1) {
+  background: #e2534d;
+}
+.kq-chrome span:nth-child(2) {
+  background: #e2b53f;
+}
+.kq-chrome span:nth-child(3) {
+  background: #4ade80;
+}

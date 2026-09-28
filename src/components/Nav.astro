@@ -1,0 +1,73 @@
+---
+import type { ConfigLink } from "../lib/config";
+
+interface Props {
+  siteTitle: string;
+  nav: ConfigLink[];
+}
+const { siteTitle, nav } = Astro.props;
+---
+
+<header class="kq-nav">
+  <a class="kq-nav__brand" href="/">{siteTitle}</a>
+  {
+    nav.length > 0 && (
+      <nav class="kq-nav__links" aria-label="Site links">
+        <ul>
+          {nav.map((link) => (
+            <li>
+              <a href={link.url}>{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )
+  }
+</header>
+
+<style>
+  .kq-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--kq-gap-sm);
+    margin-bottom: var(--kq-gap-lg);
+  }
+
+  .kq-nav__brand {
+    font-family: var(--kq-font-heading);
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--kq-ink);
+    text-decoration: none;
+  }
+
+  .kq-nav__links ul {
+    list-style: none;
+    display: flex;
+    gap: var(--kq-gap-sm);
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+  }
+
+  .kq-nav__links a {
+    display: inline-block;
+    font-family: var(--kq-font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--kq-ink-soft);
+    text-decoration: none;
+    padding: 0.4em 0.9em;
+    border-radius: var(--kq-radius-sm);
+    background: var(--kq-nav-pill-bg, transparent);
+    transition: color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .kq-nav__links a:hover,
+  .kq-nav__links a:focus-visible {
+    color: var(--kq-ink);
+    background: var(--kq-nav-pill-hover-bg, var(--kq-surface));
+  }
+</style>

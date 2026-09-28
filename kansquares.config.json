@@ -1,0 +1,57 @@
+{
+  "site": {
+    "title": "Your Name",
+    "description": "A collection of games, tools, and other fun things I've made.",
+    "url": "https://example.com",
+    "ogImage": "/covers/example-three.svg",
+    "favicon": "/favicon.svg",
+    "footer": "Built with <a href=\"https://github.com/bilarikan/astro-theme-kansquares\">Kansquares</a>."
+  },
+  "nav": [
+    { "label": "Blog", "url": "https://example.com/blog" },
+    { "label": "GitHub", "url": "https://github.com/example" }
+  ],
+  "theme": {
+    "preset": "tray",
+    "columns": { "mobile": 2, "tablet": 2, "desktop": 3, "wide": 4 },
+    "showHeadingUnderImage": true
+  },
+  "sections": [
+    {
+      "id": "fun",
+      "label": "Fun",
+      "items": [
+        {
+          "title": "Example Game",
+          "heading": "A short, punchy tagline",
+          "description": "One or two sentences about what makes it worth a click.",
+          "image": "/covers/example-one.svg",
+          "imageAlt": "Abstract illustration with a play triangle, representing Example Game",
+          "url": "https://example.com/example-game"
+        },
+        {
+          "title": "Another Project",
+          "heading": "Swap this for your own",
+          "description": "Every field here is optional except title, image, imageAlt, and url.",
+          "image": "/covers/example-two.svg",
+          "imageAlt": "Abstract illustration with a wrench, representing Another Project",
+          "url": "https://example.com/another-project"
+        }
+      ]
+    },
+    {
+      "id": "code",
+      "label": "Code",
+      "items": [
+        {
+          "title": "Kansquares",
+          "heading": "This theme",
+          "description": "The Astro theme you're looking at right now — MIT licensed, fork away.",
+          "image": "/covers/example-three.svg",
+          "imageAlt": "The Kansquares logo mark, a grid of six colorful rounded squares",
+          "url": "https://github.com/bilarikan/astro-theme-kansquares"
+        }
+      ]
+    }
+  ]
+}
