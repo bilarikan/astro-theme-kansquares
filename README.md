@@ -2,9 +2,9 @@
 
 A free, open-source [Astro](https://astro.build) theme for a single-page
 project-curation site — a grid of games, apps, and projects you've made, each
-linking out to where it actually lives. Inspired by the layout of
-[john.fun](https://john.fun), architected for config-only customization the
-way [OpenLinks](https://github.com/E10YDEV/OpenLinks) is.
+linking out to where it actually lives.
+
+![The Kansquares demo in the default Tray preset, in light and dark mode](.github/screenshot.png)
 
 Everything you'd normally touch — content, columns, header links, visual
 style — lives in one file: **`kansquares.config.json`**. No component edits
@@ -86,8 +86,8 @@ and all read the same config — switching preset is a one-line change.
 
 | Preset | Look |
 |---|---|
-| `tray` *(default)* | Warm paper palette (lifted from a real token set), heading + description shown under each card. |
-| `poster` | Faithful to john.fun: huge centered wordmark, image-only cards, nothing captioned underneath. |
+| `tray` *(default)* | Warm paper palette, heading + description shown under each card. |
+| `poster` | Huge centered wordmark, image-only cards, nothing captioned underneath. |
 | `brutalist` | High-contrast, monospace, hard edges, thick borders, inverts on hover. |
 | `squares` | Literal 1:1 square cards in a tighter grid, instead of wide rectangles. |
 | `zine` | Cut-and-paste scrapbook feel — tilted, tape-bordered cards on newsprint. |
